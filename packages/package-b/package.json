@@ -1,5 +1,5 @@
 {
-  "name": "@sprovod-config/package-a",
+  "name": "@sprovod-config/package-b",
   "version": "1.0.0",
   "description": "A sample private scoped npm package",
   "main": "index.js",
