@@ -10,3 +10,7 @@
 module.exports.helloWorld = function () {
   console.log("Hello world!");
 };
+
+module.exports.helloPlanet = function () {
+  console.log("Hello planet!");
+};
