@@ -2,9 +2,5 @@
   "name": "@sprovod-config/package-d",
   "version": "1.0.0",
   "description": "A sample private scoped npm package",
-  "main": "index.js",
-  "scripts": {
-    "prepare": "npm run co:login",
-    "co:login": "aws codeartifact login --tool npm --repository sprovod --domain sprovod --domain-owner 336911096458 --region eu-central-1"
-  }
+  "main": "index.js"
 }
