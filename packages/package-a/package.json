@@ -1,6 +1,6 @@
 {
   "name": "@sprovod-config/package-a",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "A sample private scoped npm package",
   "main": "index.js"
 }

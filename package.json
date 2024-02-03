@@ -1,12 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "npm run co:login",
-    "co:login": "aws codeartifact login --tool npm --repository sprovod --domain sprovod --domain-owner 336911096458 --region eu-central-1",
-    "changeset": "changeset",
-    "version-packages": "changeset version",
-    "release": "turbo build && changeset publish",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "prepare": "npm run aws:login",
+    "aws:login": "aws codeartifact login --tool npm --repository sprovod --domain sprovod --domain-owner 336911096458 --region eu-central-1",
+    "bump": "changeset && changeset version",
+    "release": "turbo build lint test && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
