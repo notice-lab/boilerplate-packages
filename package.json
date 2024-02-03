@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "prepareE": "npm run co:login",
+    "prepare": "npm run co:login",
     "co:login": "aws codeartifact login --tool npm --repository sprovod --domain sprovod --domain-owner 336911096458 --region eu-central-1",
     "changeset": "changeset",
     "version-packages": "changeset version",
