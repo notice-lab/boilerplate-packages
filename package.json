@@ -4,16 +4,16 @@
     "prepare": "npm run aws:login",
     "aws:login": "aws codeartifact login --tool npm --repository sprovod --domain sprovod --domain-owner 336911096458 --region eu-central-1",
     "bump": "changeset && changeset version",
-    "release": "turbo build lint test && changeset publish"
+    "release": "turbo telemetry disable && turbo build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "turbo": "1.11.3"
   },
+  "packageManager": "npm@10.2.4",
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "npm@10.2.4",
   "workspaces": [
     "packages/*"
   ]

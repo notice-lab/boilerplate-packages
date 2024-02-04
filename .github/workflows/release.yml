@@ -2,10 +2,11 @@ name: Release
 
 on:
   push:
-    branches:
-      - master
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+      branches:
+          - master
+  pull_request:
+      branches:
+          - master
 
 jobs:
   release:
@@ -13,22 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js 20.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
-
+        uses: actions/checkout@v4
+      
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Setup Node.js and retrieve cached dependancies
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Clean install all dependencies
+        run: npm ci
 
       - name: Publish packages
         run: npm run release
