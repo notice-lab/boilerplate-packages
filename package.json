@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "prepare": "npm run aws:login",
     "aws:login": "aws codeartifact login --tool npm --repository sprovod --domain sprovod --domain-owner 336911096458 --region eu-central-1",
     "bump": "changeset && changeset version",
     "release": "turbo telemetry disable && turbo build lint test && changeset version && changeset publish"
