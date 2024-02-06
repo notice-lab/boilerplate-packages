@@ -30,7 +30,7 @@ jobs:
           cache: npm
 
       - name: Set up AWS CODEARTIFACT_AUTH_TOKEN
-        run: export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain sprovod --domain-owner 336911096458 --region eu-central-1 --query authorizationToken --output text`
+        run: echo "CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain sprovod --domain-owner 336911096458 --region eu-central-1 --query authorizationToken --output text`" >> $GITHUB_ENV
 
       - name: Clean install all dependencies
         run: npm ci
