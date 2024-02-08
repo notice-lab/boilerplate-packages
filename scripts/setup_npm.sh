@@ -5,7 +5,12 @@ rm -f .npmrc
 REPOSITORY_DOMAIN=sprovod
 REPOSITORY_DOMAIN_OWNER=336911096458
 REPOSITORY_REGION=eu-central-1
-REPOSITORY_NAMES=("sprovod-client" "sprovod-config")
+REPOSITORY_NAMES=( $(aws codeartifact list-repositories-in-domain \
+    --domain $REPOSITORY_DOMAIN \
+    --domain-owner $REPOSITORY_DOMAIN_OWNER \
+    --region $REPOSITORY_REGION \
+    --query 'repositories[*].[name]' \
+    --output text) )
 
 for REPOSITORY_NAME in "${REPOSITORY_NAMES[@]}"
 do
