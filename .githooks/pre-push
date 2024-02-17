@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+/* import EXTERNAL MODULES */
+const { execSync } = require("node:child_process");
+
+try {
+    // Execute terminal command
+    execSync("git pull", { stdio: "inherit" });
+} catch {
+    /* No need to catch this error since it can only occur if a remote branch doesn't exist */
+    /* We want the new branch to be pushed if it doesn't exist on the remote */
+}

@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+/* import EXTERNAL MODULES */
+const { execSync } = require("node:child_process");
+
+try {
+    // Execute terminal commands
+    execSync("npm install", { stdio: "inherit" });
+} catch (error) {
+    console.error(error.message);
+    process.exit(1);
+}
