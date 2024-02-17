@@ -35,6 +35,17 @@ jobs:
       - name: Clean install all dependencies
         run: npm ci
 
+      - name: Run ESLint and Typescript compiler
+        run: |
+            npm run format:typescript
+            npm run format:eslint
+
+      - name: Run all unit tests and provide coverage
+        run: npm run test:coverage
+
+      - name: Build individual packages
+        run: npm run build
+
       - name: Publish packages
         run: npm run release
 

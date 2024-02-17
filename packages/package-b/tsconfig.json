@@ -1,0 +1,15 @@
+{
+    "extends": "@sprovod-config/typescript-config/server.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "esModuleInterop": true,
+        "lib": ["dom", "ES2015"],
+        "types": ["node", "jest"],
+        "baseUrl": "./src",
+        "paths": {
+            "@/*": ["*"]
+        }
+    },
+    "include": ["."],
+    "exclude": ["build", "node_modules"]
+}

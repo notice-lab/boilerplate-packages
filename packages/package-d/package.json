@@ -1,9 +1,0 @@
-{
-  "name": "@sprovod-config/package-d",
-  "version": "1.0.0",
-  "description": "A sample private scoped npm package",
-  "main": "index.js",
-  "publishConfig": {
-    "registry": "https://sprovod-336911096458.d.codeartifact.eu-central-1.amazonaws.com/npm/sprovod-config/"
-  }
-}
