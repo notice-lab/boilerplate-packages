@@ -1,0 +1,38 @@
+name: PR title linter
+on:
+    pull_request:
+        branches:
+            - master
+        types:
+            - opened
+            - edited
+jobs:
+    commitlint:
+        name: Lint PR title
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v4
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: eu-central-1
+
+            - name: Setup Node.js and retrieve cached dependancies
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+                cache: npm
+
+            - name: Set up .npmrc and AWS Code Artifact
+              run: echo "CODEARTIFACT_AUTH_TOKEN=$(bash ./scripts/setup_npm.sh)" >> $GITHUB_ENV
+
+            - name: Clean install all dependencies
+              run: npm ci
+
+            - name: Validate PR title with commitlint
+              if: github.event_name == 'pull_request'
+              run: echo "${{ github.event.pull_request.title }}" | npx commitlint --verbose
