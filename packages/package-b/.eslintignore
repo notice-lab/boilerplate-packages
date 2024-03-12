@@ -1,8 +1,0 @@
-node_modules
-build
-config
-scripts
-*js
-*css
-*.test.*
-*.spec.*

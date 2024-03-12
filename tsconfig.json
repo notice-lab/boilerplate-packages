@@ -1,0 +1,8 @@
+{
+    "extends": "@sprovod/config/typescript/library.json",
+    "compilerOptions": {
+        "outDir": "build"
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "build", "src/**/*.test.ts", "src/**/*.spec.ts"]
+}

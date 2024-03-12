@@ -5,14 +5,12 @@ const { execSync } = require("node:child_process");
 
 try {
     // Execute terminal commands
+    execSync("npm run clean", { stdio: "inherit" });
     execSync("npm run format:update-license", { stdio: "inherit" });
     execSync("npm run format:eslint", { stdio: "inherit" });
     execSync("npm run format:typescript", { stdio: "inherit" });
-    execSync("npm run format:stylelint", { stdio: "inherit" });
     execSync("npm run format:prettier", { stdio: "inherit" });
     execSync("npm run test:coverage", { stdio: "inherit" });
-    execSync("npm run bump:changeset", { stdio: "inherit" });
-    execSync("npm run bump:version", { stdio: "inherit" });
 
     // Add all updated files to existing staging area for inclusion in the current commit
     execSync("git add . --update", { stdio: "inherit" });

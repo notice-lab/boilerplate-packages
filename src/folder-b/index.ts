@@ -9,7 +9,4 @@
  */
 
 /* NOTE: make sure the order of exports is the same as the order of files in the folder */
-
-export const helloWorld = () => {
-    return "Hello World!";
-};
+export * from ".";

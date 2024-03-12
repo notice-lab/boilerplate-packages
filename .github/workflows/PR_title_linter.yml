@@ -19,7 +19,7 @@ jobs:
               with:
                   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  aws-region: eu-central-1
+                  aws-region: ${{ secrets.AWS_REGION }}
 
             - name: Setup Node.js and retrieve cached dependancies
               uses: actions/setup-node@v4
@@ -32,6 +32,9 @@ jobs:
 
             - name: Clean install all dependencies
               run: npm ci
+
+            - name: Clean install all dependencies
+              run: npm install --save-dev @commitlint/{cli,config-conventional}
 
             - name: Validate PR title with commitlint
               if: github.event_name == 'pull_request'

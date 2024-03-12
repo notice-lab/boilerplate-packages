@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 
 /* import EXTERNAL MODULE */
-const { server } = require("@sprovod-config/jest-config");
+const config = require("@sprovod/config/jest/server");
 
 /* export CONFIGURATION - with custom config overriding the imported one if the same value is defined twice */
-module.exports = { ...server };
+module.exports = { ...config };

@@ -2,7 +2,7 @@ node_modules
 build
 config
 scripts
-*js
-*css
+*.js
+*.css
 *.test.*
 *.spec.*

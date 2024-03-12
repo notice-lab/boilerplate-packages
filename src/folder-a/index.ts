@@ -8,3 +8,5 @@
  * of the license agreement you entered into with [Your Company Name].
  */
 
+/* NOTE: make sure the order of exports is the same as the order of files in the folder */
+export * from ".";

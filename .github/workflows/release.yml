@@ -1,51 +1,62 @@
 name: Release
-
 on:
-  push:
-      branches:
-          - master
-  pull_request:
-      branches:
-          - master
+    push:
+        branches:
+            - master
+
+permissions:
+    contents: read # for checkout
 
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
+    release:
+        name: Release
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write # to be able to publish a GitHub release
+            issues: write # to be able to comment on released issues
+            pull-requests: write # to be able to comment on released pull requests
+            id-token: write # to enable use of OIDC for npm provenance
+        steps:
+            - name: Checkout Repo
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js and retrieve cached dependancies
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Set up .npmrc and AWS Code Artifact
-        run: echo "CODEARTIFACT_AUTH_TOKEN=$(bash ./scripts/setup_npm.sh)" >> $GITHUB_ENV
+            - name: Setup Node.js and retrieve cached dependancies
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20
+                  cache: npm
 
-      - name: Clean install all dependencies
-        run: npm ci
+            - name: Set up .npmrc and AWS Code Artifact
+              run: echo "CODEARTIFACT_AUTH_TOKEN=$(bash ./scripts/setup_npm.sh)" >> $GITHUB_ENV
 
-      - name: Run ESLint and Typescript compiler
-        run: |
-            npm run format:typescript
-            npm run format:eslint
+            - name: Clean install all dependencies
+              run: npm ci
 
-      - name: Run all unit tests and provide coverage
-        run: npm run test:coverage
+            # - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+            #   run: npm audit signatures
 
-      - name: Build individual packages
-        run: npm run build
+            - name: Run ESLint and Typescript compiler
+              run: |
+                  npm run format:typescript
+                  npm run format:eslint
 
-      - name: Publish packages
-        run: npm run release
+            - name: Run all unit tests and provide coverage
+              run: npm run test:coverage
 
+            - name: Build individual packages
+              run: npm run build
+
+            - name: Install semantic-release to generate release notes and publish the package
+              run: npm install --save-dev semantic-release
+
+            - name: Publish packages
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: npx semantic-release

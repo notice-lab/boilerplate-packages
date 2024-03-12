@@ -1,47 +1,36 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-node_modules
-.npmrc
-.pnp
-.pnp.js
-
-# testing
-coverage
-
-# build folders
-.next/
-out/
-build/
-dist/
-
-# cache folders and files
-.parcel-cache/
-
-# development environment files
+# environment files
 .gitconfig
+.env
 .env.*
-.eslintcache
-.stylelintcache
 
-# typescript
-*.tsbuildinfo
-typedoc/
-
-# misc
-.DS_Store
+# keys and certificates
 *.pem
 
 # debug
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
 
-# turbo
-.turbo
+# typescript
+*.tsbuildinfo
 
-# lock files
-pnpm-lock.yaml
+# Logs
+logs
+*.log
 
-storybook-static/
+# dependencies
+node_modules/
+.npmrc
+
+# testing
+coverage
+
+# cache files
+.eslintcache
+
+# build folders
+build
+
+# build artifacts (only ROOT LEVEL folders are ignored)
+/constants
+/utilities
